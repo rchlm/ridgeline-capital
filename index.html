@@ -226,15 +226,41 @@
     <div class="contact-cta__inner">
       <h2 class="contact-cta__headline">Ready for a property that pays you<br><em class="text-gold">without the calls?</em></h2>
       <p class="contact-cta__subhead">A 20-minute conversation is enough to know if your property fits. We will tell you honestly, on the call, whether we want to lease it.</p>
-      <form class="contact-cta__form" action="mailto:info@ridgelinecapital.com" method="post" enctype="text/plain">
+      <form class="contact-cta__form" id="contact-form" action="https://formspree.io/f/mnjrwzyl" method="POST">
+        <input type="hidden" name="_subject" value="New Partner Inquiry — Ridgeline Capital" />
         <div class="contact-cta__fields">
           <input type="text" name="name" placeholder="Your name" class="contact-cta__input" autocomplete="name" required />
           <input type="email" name="email" placeholder="Email address" class="contact-cta__input" autocomplete="email" required />
-          <input type="text" name="address" placeholder="Property address" class="contact-cta__input" autocomplete="street-address" required />
+          <input type="text" name="property_address" placeholder="Property address" class="contact-cta__input" autocomplete="street-address" required />
         </div>
         <button type="submit" class="btn btn--gold">Schedule a Call <span class="btn__arrow">→</span></button>
         <p class="contact-cta__note">A conversation, not a sales pitch.</p>
       </form>
+      <div id="contact-thanks" style="display:none;" aria-live="polite">
+        <p class="contact-cta__subhead">Thank you — we'll be in touch within one business day.</p>
+      </div>
+      <script>
+        (function () {
+          var form = document.getElementById('contact-form');
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { Accept: 'application/json' }
+            }).then(function (res) {
+              if (res.ok) {
+                form.style.display = 'none';
+                document.getElementById('contact-thanks').style.display = 'block';
+              } else {
+                form.querySelector('[type="submit"]').textContent = 'Something went wrong — please try again.';
+              }
+            }).catch(function () {
+              form.querySelector('[type="submit"]').textContent = 'Something went wrong — please try again.';
+            });
+          });
+        })();
+      </script>
     </div>
   </section>
 
