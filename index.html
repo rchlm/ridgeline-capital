@@ -243,6 +243,21 @@
       <script>
         (function () {
           var form = document.getElementById('contact-form');
+          var emailInput = form.querySelector('input[type="email"]');
+          var emailTouched = false;
+
+          function validateEmail() {
+            emailInput.classList.toggle('is-invalid', !emailInput.validity.valid);
+          }
+
+          emailInput.addEventListener('blur', function () {
+            if (emailInput.value) { emailTouched = true; validateEmail(); }
+          });
+
+          emailInput.addEventListener('input', function () {
+            if (emailTouched) validateEmail();
+          });
+
           form.addEventListener('submit', function (e) {
             e.preventDefault();
             fetch(form.action, {

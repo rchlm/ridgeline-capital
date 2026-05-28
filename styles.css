@@ -777,6 +777,11 @@ input, button { appearance: none; }
   border: none;
   border-bottom: var(--hairline);
   outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.contact-cta__input.is-invalid {
+  box-shadow: inset 0 -2px 0 rgba(180, 50, 30, 0.5);
 }
 
 .contact-cta__fields .contact-cta__input:last-child {
